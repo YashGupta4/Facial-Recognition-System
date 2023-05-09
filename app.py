@@ -4,31 +4,51 @@ import face_recognition
 import numpy as np
 ######
 # database connection
-#connection = pymysql.connect(host="localhost", port=8889, user="root", passwd="root", database="hms")
-#cursor = connection.cursor()
+# connection = pymysql.connect(host="localhost", port=8889, user="root", passwd="root", database="hms")
+# cursor = connection.cursor()
 #####
 
 # some other statements  with the help of cursor
 
 app = Flask(__name__)
 camera = cv2.VideoCapture(0)
+    
+# Load a sample picture and learn how to recognize it.
+Amitabh_image = face_recognition.load_image_file("Amitabh\Amitabh.jpg")
+Amitabh_face_encoding = face_recognition.face_encodings(Amitabh_image)[0]
+
 
 # Load a sample picture and learn how to recognize it.
-Amitabh_image = face_recognition.load_image_file("Ajitesh\img.jpeg")
-Amitabh_face_encoding = face_recognition.face_encodings(Amitabh_image)[0]
+Ajitesh_image = face_recognition.load_image_file("Ajitesh\img.jpeg")
+Ajitesh_face_encoding = face_recognition.face_encodings(Ajitesh_image)[0]
+
+# Load a second sample picture and learn how to recognize it.
+Mayank_image = face_recognition.load_image_file("Mayank\Mayank.jpeg")
+Mayank_face_encoding = face_recognition.face_encodings(Mayank_image)[0]
 
 # Load a second sample picture and learn how to recognize it.
 Sharukh_image = face_recognition.load_image_file("Sharukh\Sharukh.jpg")
 Sharukh_face_encoding = face_recognition.face_encodings(Sharukh_image)[0]
 
+
+# Load a second sample picture and learn how to recognize it.
+Yash_image = face_recognition.load_image_file("Yash\Yash.jpg")
+Yash_face_encoding = face_recognition.face_encodings(Yash_image)[0]
+
 # Create arrays of known face encodings and their names
 known_face_encodings = [
     Amitabh_face_encoding,
-    Sharukh_face_encoding
+    Ajitesh_face_encoding,
+    Mayank_face_encoding,
+    Sharukh_face_encoding,
+    Yash_face_encoding
 ]
 known_face_names = [
-    "ishaan",
-    "Sharukh"
+     "Amitabh",
+    "Ishaan",
+    "Mayank",
+    "Sharukh",
+    "Yash"
 ]
 
 # Initialize some variables
@@ -112,10 +132,11 @@ def generate_frames():
             yield(b'--frame\r\n'
                    b'Conetnt-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')   
           
-
 @app.route('/')
 def index():
     return render_template('index.html')
+
+
 
 @app.route('/video')
 def video():
