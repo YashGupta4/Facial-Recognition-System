@@ -2,12 +2,19 @@ from flask import Flask, render_template, Response
 import cv2
 import face_recognition
 import numpy as np
+######
+# database connection
+#connection = pymysql.connect(host="localhost", port=8889, user="root", passwd="root", database="hms")
+#cursor = connection.cursor()
+#####
+
+# some other statements  with the help of cursor
 
 app = Flask(__name__)
 camera = cv2.VideoCapture(0)
 
 # Load a sample picture and learn how to recognize it.
-Amitabh_image = face_recognition.load_image_file("Amitabh\Amitabh.jpg")
+Amitabh_image = face_recognition.load_image_file("Ajitesh\img.jpeg")
 Amitabh_face_encoding = face_recognition.face_encodings(Amitabh_image)[0]
 
 # Load a second sample picture and learn how to recognize it.
@@ -20,7 +27,7 @@ known_face_encodings = [
     Sharukh_face_encoding
 ]
 known_face_names = [
-    "Amitabh",
+    "ishaan",
     "Sharukh"
 ]
 
@@ -116,3 +123,6 @@ def video():
 
 if __name__=="__main__":
         app.run(debug=True)
+
+###
+#connection.close()
